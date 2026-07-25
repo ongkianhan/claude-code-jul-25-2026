@@ -36,8 +36,8 @@ The page is one continuous scroll with a sticky nav linking to three sections:
 - **Testimonial cards** — a responsive 3-column grid (collapses to a single column on mobile) with a quote, client name, role/company, and an initials-based avatar placeholder. Cards lift on hover.
 - **Enquiry form** — collects Name, Email, Company (optional), and Message.
   - **Client-side validation**: required fields (Name, Email, Message) and email format checking via regex, with inline error messages and highlighted invalid fields.
-  - **Submission handling**: on submit, the form is posted as JSON to a [Formspree](https://formspree.io/) endpoint via `fetch()`. The button shows a "Sending…" state while the request is in flight, then displays a success message on a `200` response or an inline error message on failure.
-  - **Formspree endpoint placeholder**: `FORMSPREE_ENDPOINT` in [script.js](script.js) is set to `https://formspree.io/f/{YOUR_FORM_ID}` — replace `{YOUR_FORM_ID}` with a real Formspree form ID before the form can actually deliver submissions.
+  - **Submission handling**: on submit, the form is posted as JSON to a [FormSubmit](https://formsubmit.co/) AJAX endpoint via `fetch()`. The button shows a "Sending…" state while the request is in flight, then displays a success message on a `200` response or an inline error message on failure.
+  - **FormSubmit endpoint**: `FORMSUBMIT_ENDPOINT` in [script.js](script.js) is set to `https://formsubmit.co/ajax/kianhan97@gmail.com` — submissions are emailed directly to that address, no backend or signup required.
 
 ## Design
 
@@ -59,6 +59,5 @@ Every push to `main` triggers [.github/workflows/deploy.yml](.github/workflows/d
 
 ## To do before going live
 
-- Replace `{YOUR_FORM_ID}` in the `FORMSPREE_ENDPOINT` constant with a real Formspree form ID.
 - Swap placeholder testimonial content/avatars for real client quotes.
 - Update footer copyright and any brand-specific copy ("Momentum") as needed.

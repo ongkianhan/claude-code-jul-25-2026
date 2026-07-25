@@ -10,8 +10,8 @@ document.querySelectorAll('a[href^="#"]').forEach(function (link) {
   });
 });
 
-// Enquiry form submission via Formspree
-var FORMSPREE_ENDPOINT = 'https://formspree.io/f/{YOUR_FORM_ID}'; // TODO: replace {YOUR_FORM_ID} with your actual Formspree form ID
+// Enquiry form submission via FormSubmit
+var FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/kianhan97@gmail.com';
 
 var form = document.getElementById('enquiry-form');
 var submitBtn = document.getElementById('submit-btn');
@@ -82,7 +82,7 @@ form.addEventListener('submit', function (e) {
   submitBtn.disabled = true;
   submitBtn.textContent = 'Sending…';
 
-  fetch(FORMSPREE_ENDPOINT, {
+  fetch(FORMSUBMIT_ENDPOINT, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
