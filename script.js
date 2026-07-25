@@ -192,6 +192,35 @@ if (counters.length) {
   });
 })();
 
+// WhatsApp FAQ widget
+var whatsappToggle = document.getElementById('whatsapp-toggle');
+var whatsappPanel = document.getElementById('whatsapp-panel');
+
+function closeWhatsappPanel() {
+  whatsappToggle.setAttribute('aria-expanded', 'false');
+  whatsappPanel.hidden = true;
+}
+
+whatsappToggle.addEventListener('click', function () {
+  var isOpen = whatsappToggle.getAttribute('aria-expanded') === 'true';
+  whatsappToggle.setAttribute('aria-expanded', String(!isOpen));
+  whatsappPanel.hidden = isOpen;
+});
+
+document.addEventListener('click', function (e) {
+  if (whatsappPanel.hidden) return;
+  if (!whatsappPanel.contains(e.target) && e.target !== whatsappToggle && !whatsappToggle.contains(e.target)) {
+    closeWhatsappPanel();
+  }
+});
+
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape' && !whatsappPanel.hidden) {
+    closeWhatsappPanel();
+    whatsappToggle.focus();
+  }
+});
+
 // Shared field-error helpers
 function setInvalid(rowId, invalid) {
   var row = document.getElementById(rowId);

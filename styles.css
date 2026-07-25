@@ -792,21 +792,31 @@ footer {
   .gallery-card { flex-basis: 260px; }
 }
 
-.whatsapp-widget {
+.whatsapp-container {
   position: fixed;
   right: 20px;
   bottom: 20px;
   z-index: 300;
   display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 14px;
+}
+
+.whatsapp-widget {
+  display: flex;
   align-items: center;
   justify-content: center;
   width: 58px;
   height: 58px;
+  border: none;
   border-radius: 50%;
   background: #25d366;
   color: #fff;
+  cursor: pointer;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  flex-shrink: 0;
 }
 
 .whatsapp-widget:hover {
@@ -819,10 +829,67 @@ footer {
   outline-offset: 3px;
 }
 
+.whatsapp-icon-close { display: none; }
+
+.whatsapp-widget[aria-expanded="true"] .whatsapp-icon { display: none; }
+.whatsapp-widget[aria-expanded="true"] .whatsapp-icon-close { display: block; }
+
 @media (prefers-reduced-motion: reduce) {
   .whatsapp-widget { transition: none; }
 }
 
 @media (max-width: 480px) {
-  .whatsapp-widget { right: 16px; bottom: 16px; width: 52px; height: 52px; }
+  .whatsapp-container { right: 16px; bottom: 16px; }
+  .whatsapp-widget { width: 52px; height: 52px; }
+}
+
+.whatsapp-panel {
+  width: 300px;
+  max-width: calc(100vw - 32px);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 20px 48px rgba(10, 22, 40, 0.18);
+  overflow: hidden;
+}
+
+.whatsapp-panel-head {
+  padding: 16px 18px;
+  background: linear-gradient(120deg, var(--accent), var(--accent-2));
+  color: #fff;
+}
+
+.whatsapp-panel-head strong { display: block; font-family: var(--font-heading); font-size: 1.05rem; }
+.whatsapp-panel-head p { margin-top: 4px; font-size: 0.85rem; opacity: 0.9; }
+
+.whatsapp-faq-list { list-style: none; padding: 8px; }
+
+.whatsapp-faq-list a {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.88rem;
+  line-height: 1.35;
+  transition: background 0.15s ease;
+}
+
+.whatsapp-faq-list a:hover,
+.whatsapp-faq-list a:focus-visible {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.whatsapp-panel-cta {
+  display: block;
+  margin: 4px 8px 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #25d366;
+  color: #fff;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.88rem;
+  text-decoration: none;
 }
