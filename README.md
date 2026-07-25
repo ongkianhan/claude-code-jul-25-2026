@@ -41,6 +41,7 @@ The homepage is one continuous scroll with a sticky nav:
 - **Enquiry form** — Name, Email, Company (optional), Message. Client-side validation, focuses the first invalid field, submits as JSON to [FormSubmit](https://formsubmit.co/) via `fetch()`.
 - **Lead-magnet form** — Name + email-only (low-friction) capture. On submit, also sets FormSubmit's `_autoresponse` field so the submitter automatically gets an email back with a direct link to the checklist page — no backend or storage needed.
   - **FormSubmit endpoint**: `FORMSUBMIT_ENDPOINT` in [script.js](script.js) is set to `https://formsubmit.co/ajax/kianhan97@gmail.com`.
+- **WhatsApp widget** — fixed floating button, bottom-right of every page, linking directly to a `wa.me/6593516241` chat with a pre-filled greeting. No chatbot backend; it's a direct deep link to WhatsApp.
 
 ## Notify subscribers (prototype)
 
