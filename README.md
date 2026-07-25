@@ -2,6 +2,8 @@
 
 A single-page marketing consultancy website built with vanilla HTML, CSS, and JavaScript — no frameworks or external dependencies (aside from an optional Google Font).
 
+**Live site:** https://ongkianhan.github.io/claude-code-jul-25-2026/
+
 ## About
 
 This is a landing page for a fictional marketing consultancy ("Momentum") designed to showcase the firm's value proposition, build trust through client testimonials, and convert visitors into leads via a contact form.
@@ -48,6 +50,10 @@ No build step required — just open [index.html](index.html) directly in a brow
 ```bash
 python3 -m http.server 8000
 ```
+
+## Deployment
+
+Every push to `main` triggers [.github/workflows/deploy.yml](.github/workflows/deploy.yml), which publishes the site to GitHub Pages at https://ongkianhan.github.io/claude-code-jul-25-2026/.
 
 ## To do before going live
 
