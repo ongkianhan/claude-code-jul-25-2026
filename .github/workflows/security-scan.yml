@@ -1,0 +1,54 @@
+name: Security Scan
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run security scan
+        id: scan
+        run: |
+          chmod +x scripts/security-scan.sh
+          ./scripts/security-scan.sh | tee scan-output.txt
+          echo "## Security Scan Result" >> "$GITHUB_STEP_SUMMARY"
+          cat scan-output.txt >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Email report if findings were found
+        if: always()
+        env:
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          if [ -s /tmp/security-scan-findings.txt ]; then
+            python3 - <<'PYEOF'
+          import json, os, urllib.request
+
+          report = open('/tmp/security-scan-findings.txt').read()
+          payload = {
+            'name': 'Momentum Security Scan',
+            'email': 'kianhan97@gmail.com',
+            '_subject': 'Security scan: findings on Momentum site',
+            'message': 'Daily security scan found the following:\n\n' + report + '\nRun: ' + os.environ['RUN_URL']
+          }
+          req = urllib.request.Request(
+            'https://formsubmit.co/ajax/kianhan97@gmail.com',
+            data=json.dumps(payload).encode('utf-8'),
+            headers={'Content-Type': 'application/json', 'Accept': 'application/json'},
+            method='POST'
+          )
+          with urllib.request.urlopen(req, timeout=15) as resp:
+              print('FormSubmit response:', resp.status)
+          PYEOF
+            echo "Findings emailed."
+          else
+            echo "No findings — no email sent."
+          fi

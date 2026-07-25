@@ -22,6 +22,13 @@ Push to `main` (GitHub repo `claude-code-jul-25-2026`)
 ## Claude Code skills
 Installed via the `skills` CLI, tracked in `skills-lock.json`, files under `.agents/skills/` (symlinked into `.claude/skills/`): `web-design-guidelines` (vercel-labs/agent-skills), `seo-audit` + `lead-magnets` (coreyhaines31/marketingskills), `ui-ux-pro-max` (nextlevelbuilder/ui-ux-pro-max-skill), `frontend-design` (anthropics/skills). Reviewed for malicious content before install — clean. Declined a 6th requested skill (`anthropic-cybersecurity-skills` from `aradotso/security-skills`) — that repo is an unvetted aggregator with an impersonation-flavored name and red-flag neighboring entries (spoofing/pentest tools), not affiliated with Anthropic despite the name.
 
+## Security scanning
+- `.claude/agents/security-scanner.md` — on-demand project subagent for defensive, read-only security review (committed secrets, risky JS patterns, live-vs-repo drift, TLS/reachability). Scoped deliberately to what's real for a static site with no server — doesn't check for SQLi/server RCE/auth, since none of that applies here. Requires a session restart to appear in the agent list after being added.
+- `scripts/security-scan.sh` — the automated version of that same check; run directly (`./scripts/security-scan.sh`) or via the workflow below. Writes findings to `/tmp/security-scan-findings.txt`.
+- `.github/workflows/security-scan.yml` — runs the script daily at `0 0 * * *` (00:00 **UTC**, not the user's local midnight — clarify/change the cron if a different timezone is wanted) plus on manual `workflow_dispatch`. Emails a report to kianhan97@gmail.com via the same FormSubmit endpoint already used elsewhere in this repo, **only if findings are non-empty** — silent on clean runs (check the Actions tab for those).
+- Known limitation: the live-vs-repo drift check compares the live site against a git checkout of HEAD, so it only makes sense in CI (clean checkout) or against a fully-committed-and-pushed local tree — running it locally with uncommitted changes will report a mismatch that isn't a real security issue, just pending work not yet deployed.
+- GitHub Pages doesn't allow custom response headers (no CSP/HSTS control) — the agent/script deliberately don't flag that as an actionable finding, since there's nothing to fix on this host.
+
 ## Notify All (prototype, dry run only)
 - `data/subscribers.json` — demo/fake subscriber list (`@example.com`), not real data.
 - `scripts/notify-all.js` — filters subscribers by `SEGMENT`/`SINCE` env vars and logs the match list; does not send email.

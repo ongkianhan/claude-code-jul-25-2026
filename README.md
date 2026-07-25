@@ -54,6 +54,14 @@ The homepage is one continuous scroll with a sticky nav:
 - An outbound email credential (e.g. a Gmail App Password or a transactional email API key) added as a GitHub Actions secret.
 - Explicit opt-in/consent tracking per recipient before any real bulk send, to stay compliant with anti-spam law (CAN-SPAM/GDPR).
 
+## Security scanning
+
+[![Run security-scan](https://img.shields.io/badge/Run-Security%20Scan-e5484d?logo=githubactions&logoColor=white)](https://github.com/ongkianhan/claude-code-jul-25-2026/actions/workflows/security-scan.yml)
+
+[.github/workflows/security-scan.yml](.github/workflows/security-scan.yml) runs [scripts/security-scan.sh](scripts/security-scan.sh) daily at 00:00 UTC (plus on-demand via the badge above), checking for: committed secrets, risky client-side JS patterns (`eval`, unsanitized `innerHTML`, `target="_blank"` without `rel="noopener"`), and drift between the live deployed page and the repo. It emails a report to the site owner only when something is actually found — clean runs stay quiet (check the Actions tab for those).
+
+This is scoped to what's real for a site with **no server, database, or backend** — it doesn't check for SQL injection, server exploits, or anything else that requires a backend to exist. [.claude/agents/security-scanner.md](.claude/agents/security-scanner.md) is the on-demand version of the same review for deeper manual audits — ask Claude to "run a security scan" (available after restarting the session once, same as any newly added agent).
+
 ## Claude Code skills
 
 This repo has [Claude Code Skills](https://github.com/vercel-labs/agent-skills) installed via the [`skills` CLI](https://skills.sh/) (tracked in [skills-lock.json](skills-lock.json), files under [.agents/skills/](.agents/skills/), symlinked into `.claude/skills/`):

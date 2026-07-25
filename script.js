@@ -193,18 +193,42 @@ if (counters.length) {
 })();
 
 // WhatsApp FAQ widget
+var WHATSAPP_NUMBER = '6593516241';
 var whatsappToggle = document.getElementById('whatsapp-toggle');
 var whatsappPanel = document.getElementById('whatsapp-panel');
+var whatsappCustomForm = document.getElementById('whatsapp-custom-form');
+var whatsappCustomInput = document.getElementById('whatsapp-custom-input');
 
 function closeWhatsappPanel() {
   whatsappToggle.setAttribute('aria-expanded', 'false');
   whatsappPanel.hidden = true;
 }
 
+function sendToWhatsapp(question) {
+  var url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(question);
+  window.open(url, '_blank', 'noopener');
+}
+
 whatsappToggle.addEventListener('click', function () {
   var isOpen = whatsappToggle.getAttribute('aria-expanded') === 'true';
   whatsappToggle.setAttribute('aria-expanded', String(!isOpen));
   whatsappPanel.hidden = isOpen;
+});
+
+whatsappPanel.querySelectorAll('.whatsapp-faq-btn').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    sendToWhatsapp(btn.dataset.question);
+    closeWhatsappPanel();
+  });
+});
+
+whatsappCustomForm.addEventListener('submit', function (e) {
+  e.preventDefault();
+  var question = whatsappCustomInput.value.trim();
+  if (!question) return;
+  sendToWhatsapp(question);
+  whatsappCustomInput.value = '';
+  closeWhatsappPanel();
 });
 
 document.addEventListener('click', function (e) {
