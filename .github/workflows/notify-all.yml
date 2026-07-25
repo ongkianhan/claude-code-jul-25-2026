@@ -1,0 +1,37 @@
+name: Notify All (dry run)
+
+on:
+  workflow_dispatch:
+    inputs:
+      segment:
+        description: "Subscriber segment to target"
+        required: true
+        default: "all"
+        type: choice
+        options:
+          - all
+          - leads
+          - newsletter
+      since:
+        description: "Only include subscribers who joined on/after this date (YYYY-MM-DD, optional)"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  notify-all:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Select recipients (dry run — no email sent)
+        env:
+          SEGMENT: ${{ inputs.segment }}
+          SINCE: ${{ inputs.since }}
+        run: node scripts/notify-all.js

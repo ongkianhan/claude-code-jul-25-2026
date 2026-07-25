@@ -39,6 +39,17 @@ The page is one continuous scroll with a sticky nav linking to three sections:
   - **Submission handling**: on submit, the form is posted as JSON to a [FormSubmit](https://formsubmit.co/) AJAX endpoint via `fetch()`. The button shows a "Sending…" state while the request is in flight, then displays a success message on a `200` response or an inline error message on failure.
   - **FormSubmit endpoint**: `FORMSUBMIT_ENDPOINT` in [script.js](script.js) is set to `https://formsubmit.co/ajax/kianhan97@gmail.com` — submissions are emailed directly to that address, no backend or signup required.
 
+## Notify subscribers (prototype)
+
+[![Run notify-all](https://img.shields.io/badge/Run-Notify%20All-6c5ce7?logo=githubactions&logoColor=white)](https://github.com/ongkianhan/claude-code-jul-25-2026/actions/workflows/notify-all.yml)
+
+[.github/workflows/notify-all.yml](.github/workflows/notify-all.yml) is a `workflow_dispatch`-triggered, collaborator-only Action that previews which subscribers would receive the enquiry-form link, filtered by `segment` (`all` / `leads` / `newsletter`) and an optional `since` date. Click the badge above (or use the `/notify-all` Claude Code command) to open the Actions page and run it — you'll need to be signed in as a repo collaborator.
+
+**This is a dry run against demo data only.** [data/subscribers.json](data/subscribers.json) is a small set of fake `@example.com` entries for prototyping the filter logic — not real subscribers. [scripts/notify-all.js](scripts/notify-all.js) only logs the matched recipient list; no email is actually sent. Wiring up a real send requires:
+- Real subscriber data (currently nothing stores form submissions anywhere — FormSubmit just emails the owner and discards the rest).
+- An outbound email credential (e.g. a Gmail App Password or a transactional email API key) added as a GitHub Actions secret.
+- Explicit opt-in/consent tracking per recipient before any real bulk send, to stay compliant with anti-spam law (CAN-SPAM/GDPR).
+
 ## Design
 
 - Dark, modern aesthetic with a blue-to-purple gradient accent (`--accent` / `--accent-2`).

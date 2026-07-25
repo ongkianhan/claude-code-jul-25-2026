@@ -13,3 +13,10 @@ Open index.html directly in a browser. No dev server required (optionally `pytho
 
 ## Deploy
 Push to `main` (GitHub repo `claude-code-jul-25-2026`)
+
+## Notify All (prototype, dry run only)
+- `data/subscribers.json` — demo/fake subscriber list (`@example.com`), not real data.
+- `scripts/notify-all.js` — filters subscribers by `SEGMENT`/`SINCE` env vars and logs the match list; does not send email.
+- `.github/workflows/notify-all.yml` — `workflow_dispatch` (collaborator-only) wrapper around the script.
+- `.claude/commands/notify-all.md` — `/notify-all` Claude Code command that triggers the workflow via `gh workflow run`.
+- No real sending is wired up: there's no submission storage and no outbound email credential configured. Don't treat this as functional bulk email — it's a prototype of the filtering/trigger UX only.

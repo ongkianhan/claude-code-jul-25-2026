@@ -1,0 +1,7 @@
+[
+  { "name": "Alex Rivera", "email": "alex.rivera@example.com", "segment": "leads", "subscribedAt": "2026-05-02" },
+  { "name": "Jordan Blake", "email": "jordan.blake@example.com", "segment": "leads", "subscribedAt": "2026-06-14" },
+  { "name": "Priya Nair", "email": "priya.nair@example.com", "segment": "newsletter", "subscribedAt": "2026-04-20" },
+  { "name": "Sam Okafor", "email": "sam.okafor@example.com", "segment": "newsletter", "subscribedAt": "2026-07-01" },
+  { "name": "Taylor Chen", "email": "taylor.chen@example.com", "segment": "leads", "subscribedAt": "2026-07-10" }
+]
