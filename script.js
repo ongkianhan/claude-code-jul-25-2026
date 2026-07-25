@@ -205,6 +205,16 @@ function showStatus(el, type, message) {
   el.className = 'form-status show ' + type;
 }
 
+// Speaks a short confirmation aloud via the browser's speech synthesis, if available.
+function speak(message) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  var utterance = new SpeechSynthesisUtterance(message);
+  utterance.rate = 1;
+  utterance.pitch = 1;
+  window.speechSynthesis.speak(utterance);
+}
+
 // Enquiry form submission via FormSubmit
 var FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/kianhan97@gmail.com';
 
@@ -284,6 +294,7 @@ form.addEventListener('submit', function (e) {
     .then(function (response) {
       if (response.ok) {
         showStatus(statusEl, 'success', "Thanks! Your enquiry has been sent — we'll be in touch within one business day.");
+        speak("Thank you for your submission. We'll get back to you within one business day.");
         form.reset();
       } else {
         return response.json().then(function (data) {
