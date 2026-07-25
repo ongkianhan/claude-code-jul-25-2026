@@ -4,6 +4,8 @@ A single-page marketing consultancy website built with vanilla HTML, CSS, and Ja
 
 **Live site:** https://ongkianhan.github.io/claude-code-jul-25-2026/
 
+![Screenshot of the Momentum landing page hero section](assets/screenshot.png)
+
 ## About
 
 This is a landing page for a fictional marketing consultancy ("Momentum") designed to showcase the firm's value proposition, build trust through client testimonials, and convert visitors into leads via a contact form.
