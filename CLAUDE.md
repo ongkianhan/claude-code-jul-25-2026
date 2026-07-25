@@ -1,13 +1,15 @@
-# Momentum Marketing Site
+# CLAUDE.md
 
-## Stack
-Vanilla HTML, CSS, JS. No frameworks, no build step.
+## What this is
+Single-page marketing site. HTML + CSS + vanilla JS — no framework, no build step.
 
-## Conventions
-- Three files: @index.html, @styles.css, @script.js — no inline `<style>`/`<script>`
-- Mobile-first, responsive
-- Use CSS variables for colors (defined in `:root` in styles.css)
+## Running
+Open index.html directly in a browser. No dev server required (optionally `python3 -m http.server 8000`).
 
-## Commands
-- Run locally: `python3 -m http.server 8000`
-- Deploy: push to `main` (GitHub repo `claude-code-jul-25-2026`)
+## Architecture
+- index.html — sections: #home, #testimonials, #contact
+- styles.css — design tokens in :root variables; mobile-first
+- script.js — smooth-scroll nav + enquiry-form validation, listeners attached at top level (script tag is at end of body)
+
+## Deploy
+Push to `main` (GitHub repo `claude-code-jul-25-2026`)
